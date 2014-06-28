@@ -57,6 +57,7 @@
 //usage:       "/dev/sda3             17381728  17107080    274648      98% /\n"
 
 #include <mntent.h>
+#include <sys/mount.h>
 #include <sys/vfs.h>
 #include "libbb.h"
 #include "unicode.h"
@@ -77,7 +78,8 @@ int df_main(int argc UNUSED_PARAM, char **argv)
 	int status = EXIT_SUCCESS;
 	unsigned opt;
 	FILE *mount_table;
-	struct mntent *mount_entry;
+	struct mntent *mount_entry, mount_storage;
+    char mount_string[PATH_MAX];
 	struct statfs s;
 
 	enum {
@@ -150,8 +152,8 @@ int df_main(int argc UNUSED_PARAM, char **argv)
 		const char *mount_point;
 
 		if (mount_table) {
-			mount_entry = getmntent(mount_table);
-			if (!mount_entry) {
+			mount_entry = getmntent_r(mount_table, &mount_storage, mount_string, sizeof(mount_string));
+			if(!mount_entry) {
 				endmntent(mount_table);
 				break;
 			}

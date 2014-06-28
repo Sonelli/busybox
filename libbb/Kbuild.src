@@ -131,6 +131,11 @@ lib-y += msgctl.o
 lib-y += semop.o
 lib-y += ipcget.o
 
+lib-y += endmntent.o
+lib-y += getmntent.o
+lib-y += getmntent_r.o
+lib-y += setmntent.o
+
 lib-y += mempcpy.o
 
 lib-$(CONFIG_FEATURE_UTMP) += utmp.o
