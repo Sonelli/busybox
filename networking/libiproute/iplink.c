@@ -11,6 +11,7 @@
 #include <netinet/if_ether.h>
 
 #include <linux/if_vlan.h>
+#include <linux/if_link.h>
 #include "ip_common.h"  /* #include "libbb.h" is inside */
 #include "rt_names.h"
 #include "utils.h"

@@ -36,10 +36,12 @@
 //usage:     "\nexits only on I/O errors (link down etc)"
 
 #include "libbb.h"
+#include <sys/types.h>
 #include <netinet/ether.h>
 #include <net/if.h>
 #include <net/if_arp.h>
 #include <linux/sockios.h>
+#include "struct-etherarp.h"
 
 #include <syslog.h>
 
