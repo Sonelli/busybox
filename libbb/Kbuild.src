@@ -122,6 +122,8 @@ lib-y += msgctl.o
 lib-y += semop.o
 lib-y += ipcget.o
 
+lib-y += mempcpy.o
+
 lib-$(CONFIG_FEATURE_UTMP) += utmp.o
 
 # A mix of optimizations (why build stuff we know won't be used)
