@@ -6,7 +6,10 @@
  *
  * Licensed under GPLv2, see file LICENSE in this source tree.
  */
+#include <sys/types.h>
 #include <netinet/ether.h>
+
+#include "../ether_port.h"
 
 #include "common.h"
 #include "dhcpd.h"

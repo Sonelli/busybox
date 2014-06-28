@@ -77,7 +77,9 @@
 #include "libbb.h"
 #include <netpacket/packet.h>
 #include <netinet/ether.h>
+#include <sys/types.h>
 #include <linux/if.h>
+#include "ether_port.h"
 
 /* Note: PF_INET, SOCK_DGRAM, IPPROTO_UDP would allow SIOCGIFHWADDR to
  * work as non-root, but we need SOCK_PACKET to specify the Ethernet
@@ -117,13 +119,14 @@ void bb_debug_dump_packet(unsigned char *outpack, int pktsize)
 static void get_dest_addr(const char *hostid, struct ether_addr *eaddr)
 {
 	struct ether_addr *eap;
+	char ether_buf[20];
 
 	eap = ether_aton_r(hostid, eaddr);
 	if (eap) {
-		bb_debug_msg("The target station address is %s\n\n", ether_ntoa(eap));
+		bb_debug_msg("The target station address is %s\n\n", ether_ntoa_r(eap, ether_buf));
 #if !defined(__UCLIBC__) || UCLIBC_VERSION >= KERNEL_VERSION(0, 9, 30)
 	} else if (ether_hostton(hostid, eaddr) == 0) {
-		bb_debug_msg("Station address for hostname %s is %s\n\n", hostid, ether_ntoa(eaddr));
+		bb_debug_msg("Station address for hostname %s is %s\n\n", hostid, ether_ntoa_r(eaddr, ether_buf));
 #endif
 	} else {
 		bb_show_usage();
