@@ -6,11 +6,14 @@
 
 //kbuild:lib-y += missing_syscalls.o
 
-/*#include <linux/timex.h> - for struct timex, but may collide with <time.h> */
+#ifdef __BIONIC__
+ #include <linux/timex.h>
+#endif
 #include <sys/syscall.h>
 #include "libbb.h"
 
 #if defined(ANDROID) || defined(__ANDROID__)
+
 pid_t getsid(pid_t pid)
 {
 	return syscall(__NR_getsid, pid);
@@ -29,7 +32,6 @@ int sethostname(const char *name, size_t len)
 	return syscall(__NR_sethostname, name, len);
 }
 
-struct timex;
 int adjtimex(struct timex *buf)
 {
 	return syscall(__NR_adjtimex, buf);
