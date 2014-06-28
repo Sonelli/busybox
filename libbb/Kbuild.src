@@ -115,6 +115,15 @@ lib-y += xrealloc_vector.o
 
 lib-$(CONFIG_PLATFORM_LINUX) += match_fstype.o
 
+lib-y += sigtimedwait-sigwaitinfo.o
+lib-y += cfsetspeed.o
+lib-y += readahead.o
+lib-y += stime.o
+lib-y += sysinfo.o
+lib-y += fdatasync.o
+lib-y += pivot_root.o
+lib-y += sethostname.o
+
 lib-y += shmctl.o
 lib-y += shmdt-at.o
 lib-y += semctl.o
