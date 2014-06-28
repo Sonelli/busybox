@@ -413,9 +413,9 @@ char FAST_FUNC get_header_tar(archive_handle_t *archive_handle)
 	}
  skip_ext_hdr:
 	{
-		off_t sz;
+		loff_t sz;
 		bb_error_msg("warning: skipping header '%c'", tar.typeflag);
-		sz = (file_header->size + 511) & ~(off_t)511;
+		sz = (file_header->size + 511) & ~(loff_t)511;
 		archive_handle->offset += sz;
 		sz >>= 9; /* sz /= 512 but w/o contortions for signed div */
 		while (sz--)

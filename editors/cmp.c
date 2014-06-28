@@ -45,7 +45,7 @@ int cmp_main(int argc UNUSED_PARAM, char **argv)
 {
 	FILE *fp1, *fp2, *outfile = stdout;
 	const char *filename1, *filename2 = "-";
-	off_t skip1 = 0, skip2 = 0, char_pos = 0;
+	loff_t skip1 = 0, skip2 = 0, char_pos = 0;
 	int line_pos = 1; /* Hopefully won't overflow... */
 	const char *fmt;
 	int c1, c2;

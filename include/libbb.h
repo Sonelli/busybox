@@ -253,7 +253,7 @@ typedef unsigned long uoff_t;
  * We misdetected that. Don't let it build:
  */
 struct BUG_off_t_size_is_misdetected {
-	char BUG_off_t_size_is_misdetected[sizeof(off_t) == sizeof(uoff_t) ? 1 : -1];
+	char BUG_off_t_size_is_misdetected[sizeof(loff_t) == sizeof(uoff_t) ? 1 : -1];
 };
 
 /* Some useful definitions */

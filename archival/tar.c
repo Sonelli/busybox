@@ -263,9 +263,9 @@ static HardLinkInfo *findHardLinkInfo(HardLinkInfo *hlInfo, struct stat *statbuf
 /* Put an octal string into the specified buffer.
  * The number is zero padded and possibly null terminated.
  * Stores low-order bits only if whole value does not fit. */
-static void putOctal(char *cp, int len, off_t value)
+static void putOctal(char *cp, int len, loff_t value)
 {
-	char tempBuffer[sizeof(off_t)*3 + 1];
+	char tempBuffer[sizeof(loff_t)*3 + 1];
 	char *tempString = tempBuffer;
 	int width;
 

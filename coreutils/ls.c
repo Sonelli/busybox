@@ -328,7 +328,7 @@ struct dnode {
 //
 	/* Same names as in struct stat, but with dn_ instead of st_ pfx: */
 	mode_t    dn_mode; /* obtained with lstat OR stat, depending on -L etc */
-	off_t     dn_size;
+	loff_t     dn_size;
 #if ENABLE_FEATURE_LS_TIMESTAMPS || ENABLE_FEATURE_LS_SORTFILES
 	time_t    dn_atime;
 	time_t    dn_mtime;

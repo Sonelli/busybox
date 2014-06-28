@@ -184,11 +184,11 @@ static struct tspec *spec;
 
 /* Function that accepts an address and an optional following char,
    and prints the address and char to stdout.  */
-static void (*format_address)(off_t, char);
+static void (*format_address)(loff_t, char);
 /* The difference between the old-style pseudo starting address and
    the number of bytes to skip.  */
 #if ENABLE_LONG_OPTS
-static off_t pseudo_offset;
+static loff_t pseudo_offset;
 #else
 enum { pseudo_offset = 0 };
 #endif
@@ -760,7 +760,7 @@ decode_format_string(const char *s)
    advance IN_STREAM.  */
 
 static void
-skip(off_t n_skip)
+skip(loff_t n_skip)
 {
 	if (n_skip == 0)
 		return;
@@ -822,10 +822,10 @@ skip(off_t n_skip)
 }
 
 
-typedef void FN_format_address(off_t address, char c);
+typedef void FN_format_address(loff_t address, char c);
 
 static void
-format_address_none(off_t address UNUSED_PARAM, char c UNUSED_PARAM)
+format_address_none(loff_t address UNUSED_PARAM, char c UNUSED_PARAM)
 {
 }
 
@@ -836,7 +836,7 @@ static char address_fmt[] ALIGN1 = "%0n"OFF_FMT"xc";
 #define address_pad_len_char address_fmt[2]
 
 static void
-format_address_std(off_t address, char c)
+format_address_std(loff_t address, char c)
 {
 	/* Corresponds to 'c' */
 	address_fmt[sizeof(address_fmt)-2] = c;
@@ -846,7 +846,7 @@ format_address_std(off_t address, char c)
 #if ENABLE_LONG_OPTS
 /* only used with --traditional */
 static void
-format_address_paren(off_t address, char c)
+format_address_paren(loff_t address, char c)
 {
 	putchar('(');
 	format_address_std(address, ')');
@@ -854,7 +854,7 @@ format_address_paren(off_t address, char c)
 }
 
 static void
-format_address_label(off_t address, char c)
+format_address_label(loff_t address, char c)
 {
 	format_address_std(address, ' ');
 	format_address_paren(address + pseudo_offset, c);
@@ -885,7 +885,7 @@ dump_hexl_mode_trailer(size_t n_bytes, const char *block)
    only when it has not been padded to length BYTES_PER_BLOCK.  */
 
 static void
-write_block(off_t current_offset, size_t n_bytes,
+write_block(loff_t current_offset, size_t n_bytes,
 		const char *prev_block, const char *curr_block)
 {
 	static char first = 1;
@@ -976,7 +976,7 @@ get_lcm(void)
    read.  */
 
 static void
-dump(off_t current_offset, off_t end_offset)
+dump(loff_t current_offset, off_t end_offset)
 {
 	char *block[2];
 	int idx;
@@ -993,7 +993,7 @@ dump(off_t current_offset, off_t end_offset)
 				n_bytes_read = 0;
 				break;
 			}
-			n_needed = MIN(end_offset - current_offset, (off_t) bytes_per_block);
+			n_needed = MIN(end_offset - current_offset, (loff_t) bytes_per_block);
 			read_block(n_needed, block[idx], &n_bytes_read);
 			if (n_bytes_read < bytes_per_block)
 				break;
@@ -1059,7 +1059,7 @@ dump(off_t current_offset, off_t end_offset)
    traditional version of od.  */
 
 static void
-dump_strings(off_t address, off_t end_offset)
+dump_strings(loff_t address, loff_t end_offset)
 {
 	unsigned bufsize = MAX(100, string_min);
 	unsigned char *buf = xmalloc(bufsize);
@@ -1131,7 +1131,7 @@ dump_strings(off_t address, off_t end_offset)
    leading '+' return nonzero and set *OFFSET to the offset it denotes.  */
 
 static int
-parse_old_offset(const char *s, off_t *offset)
+parse_old_offset(const char *s, loff_t *offset)
 {
 	static const struct suffix_mult Bb[] = {
 		{ "B", 1024 },
@@ -1186,11 +1186,11 @@ int od_main(int argc UNUSED_PARAM, char **argv)
 	unsigned opt;
 	int l_c_m;
 	/* The number of input bytes to skip before formatting and writing.  */
-	off_t n_bytes_to_skip = 0;
+	loff_t n_bytes_to_skip = 0;
 	/* The offset of the first byte after the last byte to be formatted.  */
-	off_t end_offset = 0;
+	loff_t end_offset = 0;
 	/* The maximum number of bytes that will be formatted.  */
-	off_t max_bytes_to_format = 0;
+	loff_t max_bytes_to_format = 0;
 
 	spec = NULL;
 	format_address = format_address_std;
@@ -1261,8 +1261,8 @@ int od_main(int argc UNUSED_PARAM, char **argv)
 #if ENABLE_LONG_OPTS
 	if (opt & OPT_traditional) {
 		if (argv[0]) {
-			off_t pseudo_start = -1;
-			off_t o1, o2;
+			loff_t pseudo_start = -1;
+			loff_t o1, o2;
 
 			if (!argv[1]) { /* one arg */
 				if (parse_old_offset(argv[0], &o1)) {
