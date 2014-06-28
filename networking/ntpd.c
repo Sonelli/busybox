@@ -47,7 +47,11 @@
 #include <math.h>
 #include <netinet/ip.h> /* For IPTOS_LOWDELAY definition */
 #include <sys/resource.h> /* setpriority */
-#include <sys/timex.h>
+#ifdef __BIONIC__
+ #include <linux/timex.h>
+#else
+ #include <sys/timex.h>
+#endif
 #ifndef IPTOS_LOWDELAY
 # define IPTOS_LOWDELAY 0x10
 #endif

@@ -115,6 +115,8 @@ lib-y += xrealloc_vector.o
 
 lib-$(CONFIG_PLATFORM_LINUX) += match_fstype.o
 
+lib-y += adjtimex.o
+
 lib-$(CONFIG_FEATURE_UTMP) += utmp.o
 
 # A mix of optimizations (why build stuff we know won't be used)
