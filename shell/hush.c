@@ -105,6 +105,7 @@
 #ifndef PIPE_BUF
 # define PIPE_BUF 4096  /* amount of buffering in a pipe */
 #endif
+#include "sigisemptyset.h"
 
 //config:config HUSH
 //config:	bool "hush"

@@ -136,6 +136,8 @@ lib-y += getmntent.o
 lib-y += getmntent_r.o
 lib-y += setmntent.o
 
+lib-y += sigisemptyset.o
+
 lib-y += mempcpy.o
 
 lib-$(CONFIG_FEATURE_UTMP) += utmp.o
