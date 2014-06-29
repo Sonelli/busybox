@@ -351,8 +351,7 @@ globtilde(const char *pattern, char *patbuf, size_t patbuf_len, glob_t *pglob)
 		 * the password file
 		 */
 #ifndef __GLIBC__
-		if (issetugid() != 0 ||
-		    (h = getenv("HOME")) == NULL) {
+		if ((h = getenv("HOME")) == NULL) {
 			if (((h = getlogin()) != NULL &&
 			     (pwd = getpwnam(h)) != NULL) ||
 			    (pwd = getpwuid(getuid())) != NULL)
