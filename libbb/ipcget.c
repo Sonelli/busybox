@@ -5,6 +5,8 @@
 #include <linux/msg.h>
 #include <linux/sem.h>
 
+#include "ipc_nr.h"
+
 int shmget(key_t key, size_t size, int shmflg) {
   return syscall(__NR_shmget, key, size, shmflg);
 }

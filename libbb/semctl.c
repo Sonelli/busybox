@@ -24,6 +24,8 @@
 #include <stdarg.h>
 #include <linux/sem.h>
 
+#include "ipc_nr.h"
+
 /* code from GLIBC */
 int semctl(int semid, int semnum, int cmd, ...) {
   union semun arg;

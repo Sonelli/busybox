@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <linux/shm.h>
+#include "ipc_nr.h"
 
 // NOTE: IPC_INFO takes a struct shminfo64
 int shmctl(int shmid, int cmd, struct shmid_ds *buf) {
