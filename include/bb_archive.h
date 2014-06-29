@@ -35,7 +35,7 @@ typedef struct file_header_t {
 	char *tar__uname;
 	char *tar__gname;
 #endif
-	off_t size;
+	loff_t size;
 	uid_t uid;
 	gid_t gid;
 	mode_t mode;
